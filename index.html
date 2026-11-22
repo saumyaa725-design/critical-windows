@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Critical Windows | Prenatal Exposure & Nutrition Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Educational prenatal health simulator</p>
+        <h1>Critical Windows</h1>
+        <p class="subtitle">
+          Explore how pregnancy timing, nutrition, exposures, symptoms, access, and personal context can change what to prioritize next.
+        </p>
+      </div>
+      <aside class="safety-note">
+        <strong>Not medical advice.</strong>
+        This tool is for learning and preparation. If someone is pregnant and using alcohol, opioids, nicotine, cannabis, or medications they are worried about, the safest next step is to contact a clinician, prenatal clinic, poison center, or local support service.
+      </aside>
+    </header>
+
+    <main>
+      <section class="workspace">
+        <nav class="tabs" aria-label="Primary sections">
+          <button class="tab active" data-tab="simulator">Simulator</button>
+          <button class="tab" data-tab="map">Development Map</button>
+          <button class="tab" data-tab="library">Nutrients & Exposures</button>
+          <button class="tab" data-tab="plan">Priority Plan</button>
+          <button class="tab" data-tab="sources">Evidence</button>
+        </nav>
+
+        <section class="panel active" id="simulator">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Personalized education</p>
+              <h2>Pregnancy Priority Simulator</h2>
+            </div>
+            <p>
+              Choose a journey and context. The model updates the developmental window, urgency, nutrient priorities, and questions to bring to care.
+            </p>
+          </div>
+
+          <div class="sim-grid">
+            <form class="controls" id="simForm">
+              <label>
+                Pregnancy journey
+                <select id="journey">
+                  <option value="planning">Not pregnant / planning ahead</option>
+                  <option value="early">Just found out, 1-8 weeks</option>
+                  <option value="mid">9-20 weeks pregnant</option>
+                  <option value="late">21-40 weeks pregnant</option>
+                  <option value="postexposure">Pregnant and worried about an exposure</option>
+                </select>
+              </label>
+
+              <label>
+                Week of pregnancy
+                <input id="week" type="range" min="0" max="40" value="6" />
+                <span class="range-value"><span id="weekLabel">6</span> weeks</span>
+              </label>
+
+              <label>
+                Main concern
+                <select id="exposure">
+                  <option value="none">No specific exposure, I want to prepare</option>
+                  <option value="alcohol">Alcohol</option>
+                  <option value="opioids">Opioids or pain pills</option>
+                  <option value="nicotine">Nicotine / vaping</option>
+                  <option value="cannabis">Cannabis</option>
+                  <option value="lead">Lead / old housing / paint dust</option>
+                  <option value="mercury">Mercury in fish</option>
+                  <option value="pollution">Air pollution / smoke / pesticides</option>
+                  <option value="medication">Medication safety question</option>
+                </select>
+              </label>
+
+              <label>
+                Exposure pattern
+                <select id="dose">
+                  <option value="none">None / not applicable</option>
+                  <option value="past">Past exposure before I knew</option>
+                  <option value="occasional">Occasional</option>
+                  <option value="repeated">Repeated or ongoing</option>
+                  <option value="high">Heavy, high-dose, or hard to stop</option>
+                </select>
+              </label>
+
+              <fieldset>
+                <legend>Nutrition context</legend>
+                <label class="check"><input type="checkbox" value="vegetarian" /> Vegetarian or mostly plant-based</label>
+                <label class="check"><input type="checkbox" value="lowincome" /> Limited food budget or food access</label>
+                <label class="check"><input type="checkbox" value="allergy" /> Food allergies or restrictions</label>
+                <label class="check"><input type="checkbox" value="nausea" /> Nausea, vomiting, or low appetite</label>
+                <label class="check"><input type="checkbox" value="anemia" /> Concern about low iron/anemia</label>
+                <label class="check"><input type="checkbox" value="noprenatal"> Not taking a prenatal vitamin yet</label>
+              </fieldset>
+            </form>
+
+            <div class="results" aria-live="polite">
+              <div class="score-card">
+                <div>
+                  <p class="eyebrow">Developmental stress load</p>
+                  <h3 id="riskLabel">Moderate</h3>
+                </div>
+                <div class="score-ring" id="scoreRing"><span id="scoreNumber">52</span></div>
+              </div>
+
+              <div class="result-block urgent" id="urgentBlock">
+                <h4>Most important next step</h4>
+                <p id="nextStep"></p>
+              </div>
+
+              <div class="result-columns">
+                <article>
+                  <h4>Critical window</h4>
+                  <p id="windowText"></p>
+                </article>
+                <article>
+                  <h4>Biological mechanism</h4>
+                  <p id="mechanismText"></p>
+                </article>
+                <article>
+                  <h4>Nutrition priorities</h4>
+                  <ul id="nutritionList"></ul>
+                </article>
+                <article>
+                <h4>Questions to ask</h4>
+                  <ul id="questionList"></ul>
+                </article>
+              </div>
+              <p class="model-note">
+                The score is a teaching signal, not a diagnosis. It combines timing, selected exposure, exposure pattern, and nutrition/access barriers to show what deserves attention first.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="map">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Timing matters</p>
+              <h2>Developing Prenate Map</h2>
+            </div>
+            <p>
+              Prenatal vulnerability changes over time. Early pregnancy is structure-building; later pregnancy is growth, brain maturation, and system tuning.
+            </p>
+          </div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="panel" id="library">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Mechanism explorer</p>
+              <h2>Nutrients, Toxins, and Development</h2>
+            </div>
+            <p>
+              Compare how nutrients support development and how exposures can interfere through the placenta, oxygen delivery, inflammation, hormones, or neural signaling.
+            </p>
+          </div>
+          <div class="library-grid" id="libraryGrid"></div>
+        </section>
+
+        <section class="panel" id="plan">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Concrete impact</p>
+              <h2>Priority Plan for Real Life</h2>
+            </div>
+            <p>
+              The goal is not fear. The goal is knowing what to do first, especially when time, money, transportation, food access, or support are limited.
+            </p>
+          </div>
+          <div class="action-board">
+            <article>
+              <h3>If planning pregnancy</h3>
+              <ul>
+                <li>Start a prenatal vitamin with folic acid before pregnancy if possible.</li>
+                <li>Review medications and supplements with a clinician before changing anything.</li>
+                <li>Check home/work exposure risks: lead, smoke, solvents, pesticides, and high-mercury fish.</li>
+                <li>Build low-cost staples: beans, lentils, eggs if eaten, fortified cereal, frozen vegetables, yogurt or fortified alternatives.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>If already pregnant and surprised</h3>
+              <ul>
+                <li>Start prenatal care as soon as possible, even if some weeks have passed.</li>
+                <li>Begin a prenatal vitamin if tolerated; ask about folic acid, iron, iodine, and choline.</li>
+                <li>Do not panic about past exposures. Bring details to a clinician: timing, amount, and frequency.</li>
+                <li>If food is hard to access, ask about WIC, SNAP, food pantries, school/community programs, and clinic social work.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>If using alcohol, opioids, nicotine, or other drugs</h3>
+              <ul>
+                <li>Contact a clinician quickly and honestly. Medical support can reduce risk.</li>
+                <li>Do not stop opioids suddenly without medical guidance because withdrawal can be dangerous.</li>
+                <li>Ask about medication-assisted treatment, cessation support, mental health care, and harm reduction.</li>
+                <li>Bring the simulator output as a conversation starter, not as a diagnosis.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>If vegetarian, allergic, or low budget</h3>
+              <ul>
+                <li>Prioritize iron, B12, iodine, choline, protein, calcium, vitamin D, and DHA alternatives.</li>
+                <li>Use fortified foods when possible: plant milks, cereals, nutritional yeast, iodized salt, and prenatal vitamins.</li>
+                <li>Ask about safe supplements rather than guessing doses.</li>
+                <li>Choose affordable nutrient-dense foods that fit your restrictions instead of chasing expensive wellness products.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="sources">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Evidence model</p>
+              <h2>What the Simulator Is Based On</h2>
+            </div>
+            <p>
+              The model favors prevention, harm reduction, and clinician conversation. It separates established risks from areas where evidence is still developing.
+            </p>
+          </div>
+          <div class="evidence-grid">
+            <article>
+              <h3>Strong evidence signals</h3>
+              <ul>
+                <li>Alcohol can harm fetal development, and there is no known safe amount or safe time during pregnancy.</li>
+                <li>Opioid use disorder in pregnancy needs medical care; sudden stopping without guidance can be unsafe.</li>
+                <li>Fish guidance is a risk-benefit issue: pregnant people are advised to choose low-mercury seafood while avoiding high-mercury fish.</li>
+                <li>Pregnancy raises needs for nutrients such as folate, iron, iodine, choline, calcium, vitamin D, and others.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Emerging or context-dependent areas</h3>
+              <ul>
+                <li>Cannabis evidence is still developing, but professional guidance advises cessation during pregnancy and screening through conversation.</li>
+                <li>Nutrition may modify vulnerability to some exposures, but exact individual outcomes cannot be predicted by a simple model.</li>
+                <li>Social determinants such as food access, housing, transportation, stigma, and healthcare access shape real risk and real solutions.</li>
+              </ul>
+            </article>
+            <article class="wide">
+              <h3>Sources to cite in a presentation</h3>
+              <div class="source-list">
+                <a href="https://www.cdc.gov/alcohol-pregnancy/about/index.html">CDC: Alcohol Use During Pregnancy</a>
+                <a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/08/opioid-use-and-opioid-use-disorder-in-pregnancy">ACOG: Opioid Use and Opioid Use Disorder in Pregnancy</a>
+                <a href="https://www.acog.org/clinical/clinical-guidance/clinical-consensus/articles/2025/10/cannabis-use-during-pregnancy-and-lactation">ACOG: Cannabis Use During Pregnancy and Lactation</a>
+                <a href="https://www.fda.gov/food/consumers/advice-about-eating-fish">FDA/EPA: Advice About Eating Fish</a>
+                <a href="https://ods.od.nih.gov/factsheets/Pregnancy-HealthProfessional/">NIH Office of Dietary Supplements: Pregnancy Fact Sheet</a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Built as an educational model of the maternal-placental-fetal system. It is designed to support informed conversations with trusted healthcare professionals.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
